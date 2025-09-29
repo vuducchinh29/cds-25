@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DFlip / examples</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+
+  <!-- Flipbook StyleSheet -->
+  <link href="./dflip/css/dflip.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Icons Stylesheet -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css">
+
+</head>
+<body>
+  <div class="_df_book" id="flipbok_example" source="https://chuyen-doi-so.b-cdn.net/CA%CC%82%CC%89M-NANG-SO%CC%82%CC%81-HN1.2.pdf"></div>
+
+  <script>
+    var base = new URL("./dflip/", window.location.href).href; // ends with "/"
+    window.dFlipLocation = base;
+  </script>
+
+  <!-- jQuery  -->
+  <script src="./dflip/js/libs/jquery.min.js" type="text/javascript"></script>
+  <!-- Flipbook main Js file -->
+  <script src="./dflip/js/dflip.js" type="text/javascript"></script>
+
+  <script>
+    var option_flipbok_example = {
+      pageMode: DFLIP.PAGE_MODE.SINGLE,
+      // singlePageMode: DFLIP.SINGLE_PAGE_MODE.BOOKLET
+    }
+  </script>
+
+  <script>
+    jQuery(function($){
+      var pageAudio = new Audio();
+      pageAudio.preload = "auto";
+
+      var getAudioSrcForPage = function(page) {
+        if (page === 1) return "./page_1.mp3";
+        if (page === 2) return "./page_2.mp3";
+        return null;
+      };
+
+      var customButtonFunction = function(event) {
+        var flipbook = this;
+        var page = flipbook.currentPageNumber;
+        var src = getAudioSrcForPage(page);
+
+        if (!src) {
+          pageAudio.pause();
+          pageAudio.removeAttribute("src");
+          console.log("No audio mapped for page: " + page);
+          return;
+        }
+
+        var currentSrc = pageAudio.src;
+        var targetSrc = new URL(src, window.location.href).href;
+
+        if (currentSrc === targetSrc) {
+          if (pageAudio.paused) {
+            pageAudio.play().catch(console.error);
+          } else {
+            pageAudio.pause();
+          }
+          return;
+        }
+
+        pageAudio.pause();
+        pageAudio.src = src;
+        pageAudio.currentTime = 0;
+        pageAudio.play().catch(console.error);
+      };
+
+      DFLIP.defaults.onPageChanged = function(app) {
+        if (!pageAudio.paused) pageAudio.pause();
+      }
+
+      DFLIP.defaults.onReady = function(flipbook) {  
+        var customButton = jQuery('<div class="df-ui-btn df-ui-custom-button1"><i class="ti ti-volume"></i></div>');
+        customButton.on("click",customButtonFunction.bind(flipbook));
+        flipbook.ui.share.after(customButton);
+      };
+    });
+  </script>
+</body>
+</html>
