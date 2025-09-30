@@ -12,9 +12,11 @@
   <!-- Icons Stylesheet -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@icon/themify-icons@1.0.1-alpha.3/themify-icons.min.css">
 
+  <link href="./custom.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
-  <div class="_df_book" id="flipbok_example" source="./file.pdf"></div>
+  <div class="_df_book" id="flipbok_example" source="https://chuyen-doi-so.b-cdn.net/CA%CC%82%CC%89M-NANG-SO%CC%82%CC%81-HN1.2.pdf"></div>
 
   <script>
     var base = new URL("./dflip/", window.location.href).href; // ends with "/"
@@ -28,8 +30,13 @@
 
   <script>
     var option_flipbok_example = {
-      pageMode: DFLIP.PAGE_MODE.SINGLE,
-      singlePageMode: DFLIP.SINGLE_PAGE_MODE.BOOKLET
+      height: "100%",
+      pageMode: DFLIP.PAGE_MODE.DOUBLE,
+      singlePageMode: DFLIP.SINGLE_PAGE_MODE.BOOKLET,
+      autoPlay: true,
+      autoPlayDuration: 1000,
+      allControls: "thumbnail,zoomIn,zoomOut,play,fullScreen",
+      moreControls: ""
     }
   </script>
 
@@ -39,8 +46,8 @@
       pageAudio.preload = "auto";
 
       var getAudioSrcForPage = function(page) {
-        if (page === 1) return "./page_1.mp3";
-        if (page === 2) return "./page_2.mp3";
+        if (page === 2 || page == 3) return "./page-2_3.mp3";
+        if (page === 4 || page == 5) return "./page-4_5.mp3";
         return null;
       };
 
@@ -79,9 +86,21 @@
       }
 
       DFLIP.defaults.onReady = function(flipbook) {  
-        var customButton = jQuery('<div class="df-ui-btn df-ui-custom-button1"><i class="ti ti-volume"></i></div>');
+        var customButton = jQuery('<div class="df-ui-btn df-ui-sound"></div>');
         customButton.on("click",customButtonFunction.bind(flipbook));
-        flipbook.ui.share.after(customButton);
+        flipbook.ui.zoomIn.after(customButton);
+
+        var customNextButton = jQuery('<div class="df-ui-btn df-ui-next-custom"></div>');
+        customNextButton.on("click", function() {
+          flipbook.next();
+        });
+        flipbook.ui.zoomOut.after(customNextButton);
+
+        var customPrevButton = jQuery('<div class="df-ui-btn df-ui-prev-custom"></div>');
+        customPrevButton.on("click", function() {
+          flipbook.prev();
+        });
+        flipbook.ui.zoomOut.after(customPrevButton);
       };
     });
   </script>

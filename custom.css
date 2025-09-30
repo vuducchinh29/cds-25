@@ -1,0 +1,65 @@
+body {
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-gutter: stable;
+}
+
+.df-ui-btn {
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.df-ui-btn:before {
+  display: none;
+}
+
+.df-ui-thumbnail {
+  background-image: url("./icons/Thumbnails.svg");
+}
+
+.df-ui-zoomin {
+  background-image: url("./icons/Zoom\ In.svg");
+}
+
+.df-ui-zoomout {
+  background-image: url("./icons/Zoom\ Out.svg");
+}
+
+.df-ui-fullscreen {
+  background-image: url("./icons/Fullscreen.svg");
+}
+
+.df-ui-share {
+  background-image: url("./icons/Social\ Share.svg");
+}
+
+.df-ui-sound {
+  background-image: url("./icons/Sound\ On.svg");
+}
+
+.df-ui-search {
+  background-image: url("./icons/Search.svg");
+}
+
+.df-ui-next-custom {
+  background-image: url("./icons/Next\ Page.svg");
+}
+
+.df-ui-prev-custom {
+  background-image: url("./icons/Previous\ Page.svg");
+}
+
+.df-ui-btn.df-ui-play {
+  background-image: url("./icons/Auto\ Flip.svg");
+}
+
+.df-ui-auto-play {
+  background-image: url("./icons/Auto\ Flip.svg");
+}
